@@ -1,0 +1,41 @@
+@keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #383636; /* Black */
+    border-radius: 50%;
+    animation: spinner 1.5s linear infinite;
+   
+  
+  }
+
+  .spinner-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+
+
+  .dialogue{
+    z-index: 10;
+    border: 1px solid white;
+    position: fixed;
+    background: aquamarine;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 8px;
+    box-shadow: rgb(225 225 237) 0px 7px 29px 0px;
+    padding: 20px;
+    color: black;
+    font-weight: 500;
+  }

@@ -84,10 +84,9 @@ button:focus-visible {
 
 .noData{
   position: relative;
-  top: 50%;
   left: 50%;
-  -ms-transform: translate(-20%, -0%);
-  transform: translate(-20%, 0%);
+  -ms-transform: translate(-20%, 10%);
+  transform: translate(-20%, 10%);
   z-index: -10;
   
   
@@ -127,4 +126,36 @@ text-align: center;
   text-align: left;
   background-color: #04AA6D;
   color: rgb(11, 11, 11);
+}
+
+
+.hide{
+  display: none;
+}
+
+.show{
+  display: block;
+}
+
+.center-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field-box{
+  padding: 10px;
+}
+
+.label{
+  display: inline-block;
+  width: 150px;
+}
+
+.input-field{
+  height: 18px;
+  border-radius: 8px;
+  border: none;
+  padding: 12px;
+  width: 200px;
 }
