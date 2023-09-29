@@ -118,7 +118,7 @@ text-align: center;
 
 .customers tr:nth-child(even){background-color: #121212;}
 
-.customers tr:hover {background-color: #00ff44;}
+
 
 .customers th {
   padding-top: 12px;
@@ -158,4 +158,18 @@ text-align: center;
   border: none;
   padding: 12px;
   width: 200px;
+}
+
+
+.actions{
+  display:flex;
+  justify-content: space-evenly;
+}
+
+.delete:hover{
+  transform: scale(1.1);
+}
+
+.edit:hover{
+  transform: scale(1.1);
 }

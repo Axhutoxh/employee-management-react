@@ -1,21 +1,19 @@
-import { useRef} from "react"
+import { useId, useRef} from "react"
 
 
 
 const EmpDialog = ({lable,lastId,addEmpData,closeDialog}) =>{
-
+    console.log('aaaaa')
     const firstName = useRef()
     const lastName = useRef()
     const email = useRef()
 
     function addEmp(event){
        let newEmp ={
-        id:lastId+1,
-        firstName:firstName.current.value,
-        lastName:lastName.current.value,
+        id:Date.now(),
+        name:firstName.current.value + ' ' + lastName.current.value,
         email:email.current.value
        }
-       console.log(newEmp)
        addEmpData({...newEmp})
        closeDialog(prev=>!prev)
        event.preventDefault();
