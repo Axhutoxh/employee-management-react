@@ -1,33 +1,50 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import noData from '../../assets/noData.svg'
 import LoadingSpinner from '../common/LoadingSpinner';
 import EmpDialog from '../common/EmpDialogueBox';
 const UserDetails = ()=>{
+
 
     const [employeeList,setEmployeeList] =useState([])
     const [isLoading, setIsLoading] = useState(false);
     const [dialogueFlag,setDialogFlag] = useState(false)
     const [newEmployee,setNewEmployee] = useState({})
 
-    useEffect(()=>{
-        console.log(newEmployee)
-    },[newEmployee])
+
 
     async function getEmployeeData(){
         setIsLoading(true);
        await fetch('https://jsonplaceholder.typicode.com/users')
         .then(response => response.json())
-        .then(d => {setEmployeeList(d)
+        .then(d => {
+            setEmployeeList(d)
             setIsLoading(false);});
     }
 
-    function addNewEmployeeData(){
+   const addNewEmployeeData =()=>{
         setDialogFlag(per=>!per)
     
     }
 
+    function handleEdit(){
+        console.log('edit')
+    }
+
+    function handleDelete(id){
+        const list  = employeeList.filter(list => list.id !==id)
+      
+      
+         setEmployeeList([...list])
+    }
+
+    const handleAddEmployee = (dataFromChild)=>{
+        const list = employeeList
+        list.push({...dataFromChild})
+        setEmployeeList(list)
+    }
+
     return (
-       <div style={{height: '600px'}}>
+       <div >
         <button  className="getEmpBtn" onClick={employeeList.length ? addNewEmployeeData:getEmployeeData}>{employeeList.length ? 'Add New Employee Data':'Get Employee Data'}</button>
             {isLoading?<LoadingSpinner  />:employeeList?.length ? 
              <table className="customers" >
@@ -35,6 +52,7 @@ const UserDetails = ()=>{
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Action</th>
                  </tr>
             {employeeList.map((employee) =>{
                 return (
@@ -42,6 +60,12 @@ const UserDetails = ()=>{
             <td>{employee.id}</td>
             <td>{employee.name}</td>
             <td>{employee.email}</td>
+            <td>
+                <div className='actions'>
+                    <div  className='edit' onClick={handleEdit}>✏️</div>
+                    <div className='delete' onClick={()=>handleDelete(employee.id)}>🗑️</div>
+                    </div>
+                </td>
           </tr>)
             })} </table>   :            
             <div className="noData">
@@ -52,10 +76,20 @@ const UserDetails = ()=>{
  
 
        
-      {dialogueFlag?<EmpDialog lable={'Add New Employee'} lastId={employeeList.length} addEmpData={setNewEmployee} closeDialog={setDialogFlag} />:''}
+      {
+        dialogueFlag
+        ?
+        <EmpDialog 
+            lable={'Add New Employee'} 
+            lastId={employeeList.length} 
+            addEmpData={handleAddEmployee} 
+            closeDialog={setDialogFlag} 
+            />
+            :''
+        }
 
        </div>
     )
 }
 
-export default UserDetails
+export default (UserDetails)

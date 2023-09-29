@@ -5,7 +5,7 @@ const MainLayout = ()=>{
 
     return (
        <div className="mainLayout">
-        <Header company={'Employee Management'}/>
+        <Header company={'Employee Management'}  />
         <UserDetails />
        
        </div>
