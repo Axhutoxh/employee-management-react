@@ -1,48 +1,59 @@
-import { useId, useRef} from "react"
+import {   useEffect, useRef} from "react"
 
-
-
-const EmpDialog = ({lable,lastId,addEmpData,closeDialog}) =>{
+// eslint-disable-next-line react/prop-types
+const EmpDialog = ({lable,addEmpData,closeDialog,selectedEmp,editEmpData}) =>{
     console.log('aaaaa')
     const firstName = useRef()
     const lastName = useRef()
     const email = useRef()
 
-    function addEmp(event){
+
+    useEffect(()=>{
+        const nameSplitter = selectedEmp.name.split(' ')
+        email.current.value  = selectedEmp.email
+        firstName.current.value = nameSplitter[0]
+        lastName.current.value = nameSplitter[1]
+       
+    },[selectedEmp])
+
+    function handleEmp(event){
        let newEmp ={
-        id:Date.now(),
+        id:selectedEmp.id?selectedEmp.id:Date.now(),
         name:firstName.current.value + ' ' + lastName.current.value,
         email:email.current.value
        }
-       addEmpData({...newEmp})
+       selectedEmp.id ?editEmpData({...newEmp}) :addEmpData({...newEmp})
        closeDialog(prev=>!prev)
        event.preventDefault();
     }
+
+
+
     return(
         <div className="dialogue">
             <h4 style={{textAlign:'center'}}>{lable}</h4>
-            <form className="center-box" onSubmit={addEmp}>
+            <form className="center-box" onSubmit={handleEmp}>
                 <div className='field-box'>
-                    <label className="label" for="fname">First name:</label>
-                    <input className="input-field" type="text" id="fname" name="fname" placeholder="John" ref={firstName} />
+                    <label className="label" htmlFor="fname">First name:</label>
+                    <input className="input-field" type="text" id="fname" name="fname" placeholder="John" ref={firstName}  />
                 </div>
 
                 <div className='field-box'>
-                    <label className="label" for="lname">Last name:</label>
+                    <label className="label" htmlFor="lname">Last name:</label>
                     <input className="input-field" type="text" id="lname" name="lname" placeholder="Doe" ref={lastName} />
                 </div>
 
                 <div className='field-box'>
-                    <label className="label" for="lemail">Email</label>
+                    <label className="label" htmlFor="lemail">Email</label>
                     <input className="input-field" type="email" id="lemail" name="lemail" placeholder="Doe" ref={email}/>
                 </div>
 
 
-                <button style={{marginTop:'25px'}} type="submit">Add Employee</button>
+                <button style={{marginTop:'25px'}} type="submit">{selectedEmp.id?'Edit Employee':'Add Employee'}</button>
             </form> 
         </div>
     )
 }
 
 
-export default EmpDialog
+export default (EmpDialog)
